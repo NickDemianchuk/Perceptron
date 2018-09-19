@@ -3,11 +3,21 @@ import numpy as np
 class Perceptron(object):
 
     def __init__(self, lrn_rate=0.1, epochs=100):
-        """
-        :param lrn_rate: Learning rate between 0.0 and 1 (eta)
-        :param epochs: Number of iterations over the dataset
-        :attribute w: A weights vector
-        :attribute errors: An array of misclassifications per epoch
+        """ Perceptron classifier
+
+        Parameters
+        ------------
+        lrn_rate : float
+            Learning rate - eta (between 0.0 and 1.0)
+        epochs : int
+            Iterations over the training dataset
+
+        Attributes
+        -----------
+        w: 1-d array
+            A weights vector
+        errors: list
+            A list of misclassifications per epoch
         """
         self.lrn_rate = lrn_rate
         self.epochs = epochs
@@ -16,29 +26,56 @@ class Perceptron(object):
 
     def net_input(self, sample):
         """
-        :param sample: One of the samples from dataset
-        :var bias: A weight-zero
-        :return: A vector dot product (wTx)
+        Parameters
+        ------------
+        sample : 1-d array
+            One of the samples from dataset
+        bias : float
+            A weight-zero
+
+        Returns
+        ------------
+        float
+            A vector dot product (wTx)
         """
         bias = self.w[0]
         return np.dot(sample, self.w[1:]) + bias
 
     def activation(self, sample):
         """
-        :param sample: One of the samples from dataset
-        :return: Predicted class label (-1; 1) based on the net input result
+        Parameters
+        ------------
+        sample : 1-d array
+            One of the samples from dataset
+
+        Returns
+        ------------
+        int
+            A predicted class label (-1; 1) based on the net input result
         """
         return 1 if self.net_input(sample) >= 0 else -1
 
     def fit(self, X, y):
-        """
-        :param X: Multidimensional array that represents the dataset
-        :param y: A vector of target values
-        :var errors_i: A number of errors in i-th iteration
-        :var w_update: A weights update value
-        :var target: Actual class label
-        :var sample: One of the samples from dataset
-        :return: self
+        """ Fit training data.
+        Parameters
+        ------------
+        X : {array-like}, shape = [n_samples, n_features]
+            Training vectors, where n_samples is the number of samples and
+            n_features is the number of features.
+        y : array-like, shape = [n_samples]
+            Target values.
+        errors_i : int
+            A number of errors in i-th iteration
+        w_update : float
+            A weights update value
+        target: int
+            Actual class label
+        sample: 1-d array
+            One of the samples from dataset
+
+        Returns
+        ------------
+        self : object
         """
         self.errors = []
         self.w = np.zeros(X.shape[1] + 1)

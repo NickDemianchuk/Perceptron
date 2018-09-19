@@ -23,16 +23,16 @@ class Perceptron(object):
         bias = self.w[0]
         return np.dot(sample, self.w[1:]) + bias
 
-    def act_fnc(self, sample):
+    def activation(self, sample):
         """
         :param sample: One of the samples from dataset
         :return: Predicted class label (-1; 1) based on the net input result
         """
         return 1 if self.net_input(sample) >= 0 else -1
 
-    def fit(self, x, y):
+    def fit(self, X, y):
         """
-        :param x: Multidimensional array that represents the dataset
+        :param X: Multidimensional array that represents the dataset
         :param y: A vector of target values
         :var errors_i: A number of errors in i-th iteration
         :var w_update: A weights update value
@@ -41,12 +41,12 @@ class Perceptron(object):
         :return: self
         """
         self.errors = []
-        self.w = np.zeros(x.shape[1] + 1)
+        self.w = np.zeros(X.shape[1] + 1)
 
         for _ in range(self.epochs):
             errors_i = 0
-            for sample, target in zip(x, y):
-                w_update = self.lrn_rate * (target - self.act_fnc(sample))
+            for sample, target in zip(X, y):
+                w_update = self.lrn_rate * (target - self.activation(sample))
                 self.w[0] += w_update
                 self.w[1:] += w_update * sample
                 if w_update != 0:

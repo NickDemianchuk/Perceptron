@@ -1,5 +1,6 @@
 import numpy as np
 
+
 class Perceptron(object):
 
     def __init__(self, lrn_rate=0.1, epochs=100):
@@ -41,7 +42,7 @@ class Perceptron(object):
         bias = self.w[0]
         return np.dot(sample, self.w[1:]) + bias
 
-    def activation(self, sample):
+    def predict(self, sample):
         """
         Parameters
         ------------
@@ -53,7 +54,7 @@ class Perceptron(object):
         int
             A predicted class label (-1; 1) based on the net input result
         """
-        return 1 if self.net_input(sample) >= 0 else -1
+        return np.where(self.net_input(sample) >= 0.0, 1, -1)
 
     def fit(self, X, y):
         """ Fit training data.
@@ -83,7 +84,7 @@ class Perceptron(object):
         for _ in range(self.epochs):
             errors_i = 0
             for sample, target in zip(X, y):
-                w_update = self.lrn_rate * (target - self.activation(sample))
+                w_update = self.lrn_rate * (target - self.predict(sample))
                 self.w[0] += w_update
                 self.w[1:] += w_update * sample
                 if w_update != 0:

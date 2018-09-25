@@ -32,8 +32,9 @@ def task_four():
     weights = []
     for i in range(1, len(ada.w_)):
         weights.append(str(round(abs(ada.w_[i]), 2)) + " " + columns[i])
-    # Sorting and printing the feature with the highest weight
-    print('The most predictive feature is ' + sorted(weights)[-1])
+    # Sorting and printing the features with the highest weight
+    print('The most predictive features are:')
+    print(sorted(weights, reverse=True)[:3])
 
 
 dc = DataCleaner()

@@ -28,7 +28,7 @@ class DataCleaner(object):
 
         # Dropping "unimportant" data from dataset
         df = df.drop(['PassengerId', 'Pclass', 'Name', 'Sex',
-                      'Ticket', 'Fare', 'Cabin', 'Embarked'], axis=1)
+                      'Ticket', 'Cabin', 'Embarked'], axis=1)
 
         return df
 
